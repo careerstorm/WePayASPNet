@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
-using System.Net;
+﻿using Newtonsoft.Json;
 
 namespace WePaySDK
 {
@@ -14,11 +9,11 @@ namespace WePaySDK
             CheckoutCreateResponse response;
             try
             {
-                response = new WePayClient().Invoke<CheckoutCreateRequest, CheckoutCreateResponse>(req, req.actionUrl,req.accessToken);
+                response = new WePayClient().Invoke<CheckoutCreateRequest, CheckoutCreateResponse>(req, req.actionUrl, req.accessToken);
             }
-            catch (WePayException ex) 
+            catch (WePayException ex)
             {
-                response = new CheckoutCreateResponse { checkout_id = 0, checkout_uri =req.redirect_uri+"?error="+ex.error, Error =ex };
+                response = new CheckoutCreateResponse { checkout_id = 0, checkout_uri = req.redirect_uri + "?error=" + ex.error, Error = ex };
             }
 
             return response;
@@ -32,7 +27,7 @@ namespace WePaySDK
             {
                 response = new WePayClient().Invoke<CheckoutRequest, CheckoutResponse>(req, req.actionUrl);
             }
-            catch (WePayException ex) 
+            catch (WePayException ex)
             {
                 response = new CheckoutResponse { state = ex.error, amount = 0, Error = ex };
             }
@@ -53,7 +48,7 @@ namespace WePaySDK
         public decimal amount { get; set; }
         public string mode { get; set; }
         public string fee_payer { get; set; }
-        public decimal app_fee { get; set; } 
+        public decimal app_fee { get; set; }
         public string reference_id { get; set; }
         public string long_description { get; set; }
         public string callback_uri { get; set; }
@@ -61,6 +56,7 @@ namespace WePaySDK
         public string payer_email_message { get; set; }
         public string payee_email_message { get; set; }
         public long preapproval_id { get; set; }
+        public string funding_sources { get; set; }
     }
 
     public class CheckoutCreateResponse
